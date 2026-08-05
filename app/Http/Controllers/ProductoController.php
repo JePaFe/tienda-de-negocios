@@ -2,18 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class ProductoController extends Controller
 {
     public function index()
     {
-        $productos = [
-            ['id' => 1, 'nombre' => 'Producto 1', 'precio' => 10.99],
-            ['id' => 2, 'nombre' => 'Producto 2', 'precio' => 19.99],
-            ['id' => 3, 'nombre' => 'Producto 3', 'precio' => 5.49],
-        ];
+        $productos = Producto::all();
 
         return response()->json($productos);
+    }
+
+    public function store() {
+        $producto = new Producto();
+
+        $producto->nombre = 'Nuevo Producto de Prueba';
+        $producto->descripcion = 'Descripción del nuevo producto';
+        $producto->precio = 5.99;
+        $producto->stock = 20;
+
+        $producto->save();
+
+        return response()->json($producto);
     }
 }

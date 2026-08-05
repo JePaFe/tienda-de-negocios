@@ -10,6 +10,7 @@ Route::get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function () {
     Route::get('/productos', [ProductoController::class, 'index'])->name('api.productos');
+    Route::post('/productos', [ProductoController::class, 'store'])->name('api.productos.store');
 
     Route::get('/productos/{id}', function ($id) {
         return "Mostrando el producto con id: {$id}";
