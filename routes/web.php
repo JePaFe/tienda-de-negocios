@@ -3,6 +3,7 @@
 use App\Models\Comentario;
 use App\Models\Producto;
 use Illuminate\Support\Facades\Route;
+use App\Models\Categoria;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -137,4 +138,13 @@ Route::get('/prueba-productos', function () {
     $producto->delete();
 
     return $producto;
+});
+
+Route::get('/prueba-categorias', function () {
+    $categoria = Categoria::create([
+            'nombre' => 'Electrónica',
+            'descripcion' => 'Productos electrónicos y gadgets.'
+        ]);
+
+    return $categoria;
 });
