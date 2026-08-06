@@ -14,16 +14,16 @@ class ProductoController extends Controller
         return response()->json($productos);
     }
 
-    public function store() {
-        $producto = new Producto();
+    public function store(Request $request) {
+        $validatedData = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
+            'precio' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+        ]);
 
-        $producto->nombre = 'Nuevo Producto de Prueba';
-        $producto->descripcion = 'Descripción del nuevo producto';
-        $producto->precio = 5.99;
-        $producto->stock = 20;
+        $producto = Producto::create($validatedData);
 
-        $producto->save();
-
-        return response()->json($producto);
+        return response()->json($producto, 201);
     }
 }

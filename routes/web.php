@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Comentario;
+use App\Models\Producto;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -112,4 +113,28 @@ Route::get('/prueba-usuario', function () {
     $cantidadComentarios = Comentario::where('user_id', 2)->count();
 
     return "El usuario con id 2 tiene {$cantidadComentarios} comentarios.";
+});
+
+Route::get('/prueba-productos', function () {
+    // $producto = Producto::find(2);
+
+    // $producto->nombre = 'Producto Actualizado';
+    // $producto->save();
+
+    // $producto->update([
+    //     'nombre' => 'Producto Actualizado desde update()',
+    // ]);
+
+    // $producto = Producto::create([
+    //     'nombre' => 'Nuevo Producto',
+    //     'descripcion' => 'Descripción del nuevo producto',
+    //     'precio' => 19.99,
+    //     'stock' => 100
+    // ]);
+
+    $producto = Producto::find(3);
+
+    $producto->delete();
+
+    return $producto;
 });
