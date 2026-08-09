@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Categoria;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
     return view('welcome');
@@ -111,9 +112,15 @@ Route::get('/prueba-usuario', function () {
 
     // ---
 
-    $cantidadComentarios = Comentario::where('user_id', 2)->count();
+    // $cantidadComentarios = Comentario::where('user_id', 2)->count();
 
-    return "El usuario con id 2 tiene {$cantidadComentarios} comentarios.";
+    // return "El usuario con id 2 tiene {$cantidadComentarios} comentarios.";
+
+    // ---
+
+    $user = DB::select('SELECT * FROM users WHERE id = ?', [2]);
+
+    return $user;
 });
 
 Route::get('/prueba-productos', function () {
