@@ -10,9 +10,11 @@ Route::get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function () {
     Route::get('/productos', [ProductoController::class, 'index'])->name('api.productos');
+    Route::get('/productos/{producto}', [ProductoController::class, 'show'])->name('api.productos.show');
     Route::post('/productos', [ProductoController::class, 'store'])->name('api.productos.store');
+    Route::put('/productos/{producto}', [ProductoController::class, 'update'])->name('api.productos.update');
 
-    Route::get('/productos/{id}', function ($id) {
-        return "Mostrando el producto con id: {$id}";
-    });
+    // Route::get('/productos/{id}', function ($id) {
+    //     return "Mostrando el producto con id: {$id}";
+    // });
 });

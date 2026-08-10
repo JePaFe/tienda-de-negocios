@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreProductoRequest;
+use App\Http\Requests\UpdateProductoRequest;
 
 class ProductoController extends Controller
 {
@@ -14,16 +16,28 @@ class ProductoController extends Controller
         return response()->json($productos);
     }
 
-    public function store(Request $request) {
-        $validatedData = $request->validate([
-            'nombre' => 'required|string|max:255',
-            'descripcion' => 'nullable|string',
-            'precio' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
-        ]);
+    public function show(Producto $producto) {
+        return response()->json($producto);
+    }
+
+    public function store(StoreProductoRequest $request) {
+        $validatedData = $request->validated();
 
         $producto = Producto::create($validatedData);
 
         return response()->json($producto, 201);
+    }
+
+    public function update(UpdateProductoRequest $request, Producto $producto) 
+    {
+        $validatedData = $request->validated();
+
+        $producto->update($validatedData);
+
+        return response()->json($producto);
+    }   
+
+    public function destroy(Producto $producto) {
+
     }
 }
