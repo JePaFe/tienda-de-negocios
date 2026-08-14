@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProductoRequest;
 use App\Http\Requests\UpdateProductoRequest;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use App\Exceptions\ApiException;
 use Illuminate\Http\JsonResponse;
 
 class ProductoController extends Controller
@@ -16,6 +17,8 @@ class ProductoController extends Controller
      */
     public function index(): JsonResponse
     {
+        // throw new ApiException('Error al obtener los productos', 500, ['error' => 'No se pudo obtener la lista de productos']);
+
         $productos = Producto::all();
 
         return response()->json($productos);

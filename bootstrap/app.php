@@ -4,6 +4,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -19,4 +21,42 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*'),
         );
+
+        $exceptions->render(function(NotFoundHttpException $exception, Request $request) {
+            if (!$request->is('api/*')) {
+                return null;
+            }
+
+            return response()->json([
+                'message' => 'Recurso no encontrado',
+                'status' => 404,
+                'errors' => (object) [],
+            ], 404);
+        });
+
+        $exceptions->render(function(ValidationException $exception, Request $request) {
+            if (!$request->is('api/*')) {
+                return null;
+            }
+
+            return response()->json([
+                'message' => $exception->getMessage(),
+                'status' => 422,
+                'errors' => $exception->errors(),
+            ], 422);
+        });
+
+        $exceptions->render(function(\Throwable $exception, Request $request) {
+            if (!$request->is('api/*')) {
+                return null;
+            }
+
+            // Guardar un log con el error para depuración
+
+            return response()->json([
+                'message' => 'Error interno del servidor',
+                'status' => 500,
+                'errors' => (object) [],
+            ], 500);
+        });
     })->create();

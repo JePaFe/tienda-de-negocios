@@ -15,5 +15,5 @@ Route::prefix('v1')->group(function() {
     // Route::put('/productos/{producto}', [ProductoController::class, 'update']);
     // Route::delete('/productos/{producto}', [ProductoController::class, 'destroy']);
 
-    Route::apiResource('productos', ProductoController::class);
+    Route::apiResource('productos', ProductoController::class)->middleware('throttle:10,1');
 });
