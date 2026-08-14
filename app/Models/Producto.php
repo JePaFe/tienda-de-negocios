@@ -23,9 +23,4 @@ class Producto extends Model
         'precio' => 'decimal:2',
         'stock' => 'integer',
     ];
-
-    function categoria()
-    {
-        return $this->belongsTo(Categoria::class);
-    }
 }
