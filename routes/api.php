@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\CategoriaController;
 use App\Http\Controllers\Api\V1\ProductoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,4 +17,5 @@ Route::prefix('v1')->group(function() {
     // Route::delete('/productos/{producto}', [ProductoController::class, 'destroy']);
 
     Route::apiResource('productos', ProductoController::class)->middleware('throttle:10,1');
+    Route::apiResource('categorias', CategoriaController::class)->middleware('throttle:10,1');
 });
