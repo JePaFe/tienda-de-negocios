@@ -20,6 +20,7 @@ class ProductoResource extends JsonResource
             'descripcion' => $this->descripcion,
             'precio' => (float) $this->precio,
             'stock' => $this->stock,
+            'categoria' => $this->categoria,
             'disponible' => $this->stock > 0,
             'actualizado' => $this->updated_at->format('d/m/Y'),
         ];

@@ -38,7 +38,7 @@ class CategoriaController extends Controller
      */
     public function show(Categoria $categoria)
     {
-        //
+        return response()->json($categoria);
     }
 
     /**
@@ -61,6 +61,8 @@ class CategoriaController extends Controller
      */
     public function destroy(Categoria $categoria)
     {
-        //
+        $categoria->delete();
+
+        return response()->json(null, 204);
     }
 }

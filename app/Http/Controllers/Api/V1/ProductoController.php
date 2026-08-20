@@ -26,6 +26,7 @@ class ProductoController extends Controller
                     fn ($query, $nombre) => 
                         $query->where('nombre', 'like', "%{$nombre}%")
                 )
+                
                 ->paginate();
 
         return ProductoResource::collection($productos);

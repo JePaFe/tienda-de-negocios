@@ -27,6 +27,7 @@ class StoreProductoRequest extends FormRequest
             'descripcion' => 'nullable|string',
             'precio' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
+            'categoria_id' => 'required|exists:categorias,id',
         ];
     }
 
@@ -43,6 +44,8 @@ class StoreProductoRequest extends FormRequest
             'stock.required' => 'El stock del producto es obligatorio.',
             'stock.integer' => 'El stock del producto debe ser un número entero.',
             'stock.min' => 'El stock del producto no puede ser negativo.',
+            'categoria_id.required' => 'La categoría del producto es obligatoria.',
+            'categoria_id.exists' => 'La categoría del producto debe existir en la base de datos.',
         ];
     }
 }
