@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\DTO\ProductoDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductoRequest;
 use App\Http\Requests\UpdateProductoRequest;
@@ -11,6 +12,7 @@ use App\Exceptions\ApiException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use App\Http\Resources\ProductoResource;
+use App\Services\ProductoService;
 
 class ProductoController extends Controller
 {
@@ -26,7 +28,6 @@ class ProductoController extends Controller
                     fn ($query, $nombre) => 
                         $query->where('nombre', 'like', "%{$nombre}%")
                 )
-                
                 ->paginate();
 
         return ProductoResource::collection($productos);
@@ -35,12 +36,22 @@ class ProductoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProductoRequest $request): JsonResponse {
-        $validatedData = $request->validated();
+    public function store(StoreProductoRequest $request, ProductoService $productoService): JsonResponse {
+        // $validatedData = $request->validated();
 
-        $producto = Producto::create($validatedData);
+        // $productoDTO = new ProductoDTO(
+        //     nombre: $validatedData['nombre'],
+        //     descripcion: $validatedData['descripcion'] ?? null,
+        //     precio: (float) $validatedData['precio'],
+        //     stock: (int) $validatedData['stock'],
+        //     categoria_id: (int) $validatedData['categoria_id'],
+        // );
 
-        return response()->json($producto, 201);
+        $productoDTO = ProductoDTO::fromArray($request->validated());
+
+        $producto = Producto::create($productoDTO->toArray());
+
+        return response()->json(new ProductoResource($producto), 201);
     }
 
     /**
