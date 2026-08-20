@@ -11,9 +11,11 @@ class CategoriaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $categorias = Categoria::all();
+
+        return response()->json($categorias);
     }
 
     /**
@@ -21,7 +23,14 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
+        ]);
+
+        $categoria = Categoria::create($validatedData);
+
+        return response()->json($categoria, 201);
     }
 
     /**
@@ -37,7 +46,14 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, Categoria $categoria)
     {
-        //
+        $validatedData = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
+        ]);
+
+        $categoria->update($validatedData);
+
+        return response()->json($categoria);
     }
 
     /**

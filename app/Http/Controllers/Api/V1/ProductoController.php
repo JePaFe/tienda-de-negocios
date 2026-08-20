@@ -9,19 +9,26 @@ use App\Models\Producto;
 use Illuminate\Http\Request;
 use App\Exceptions\ApiException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use App\Http\Resources\ProductoResource;
 
 class ProductoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): AnonymousResourceCollection
     {
         // throw new ApiException('Error al obtener los productos', 500, ['error' => 'No se pudo obtener la lista de productos']);
 
-        $productos = Producto::all();
+        $productos = Producto::query()
+                ->when($request->nombre, 
+                    fn ($query, $nombre) => 
+                        $query->where('nombre', 'like', "%{$nombre}%")
+                )
+                ->paginate();
 
-        return response()->json($productos);
+        return ProductoResource::collection($productos);
     }
 
     /**
@@ -38,9 +45,9 @@ class ProductoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Producto $producto): JsonResponse
+    public function show(Producto $producto): ProductoResource
     {
-        return response()->json($producto);
+        return new ProductoResource($producto);
     }
 
     /**
