@@ -63,11 +63,9 @@ class ProductoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductoRequest $request, Producto $producto): JsonResponse
+    public function update(UpdateProductoRequest $request, Producto $producto, ProductoService $productoService): JsonResponse
     {
-        $validatedData = $request->validated();
-
-        $producto->update($validatedData);
+        $producto = $productoService->update($producto, $request->toDto());
 
         return ProductoResource::make($producto)->response()->setStatusCode(200);
     } 
