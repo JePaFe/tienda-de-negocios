@@ -69,7 +69,7 @@ class ProductoController extends Controller
 
         $producto->update($validatedData);
 
-        return response()->json($producto);
+        return ProductoResource::make($producto)->response()->setStatusCode(200);
     } 
 
     /**

@@ -54,7 +54,7 @@ return Application::configure(basePath: dirname(__DIR__))
             // Guardar un log con el error para depuración
 
             return response()->json([
-                'message' => 'Error interno del servidor',
+                'message' => $exception->getMessage(),
                 'status' => 500,
                 'errors' => (object) [],
             ], 500);

@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -8,6 +9,7 @@ use App\Models\Categoria;
 class Producto extends Model
 {
     protected $fillable = [
+        'sku',
         'nombre',
         'descripcion',
         'precio',

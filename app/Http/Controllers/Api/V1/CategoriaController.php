@@ -39,6 +39,15 @@ class CategoriaController extends Controller
     public function show(Categoria $categoria)
     {
         return response()->json($categoria);
+
+        // return response()->json(
+        //     $categoria,
+        //     200,
+        //     [],
+        //     JSON_PRETTY_PRINT
+        // );
+
+        // echo json_encode($categoria, JSON_PRETTY_PRINT);
     }
 
     /**
@@ -54,6 +63,8 @@ class CategoriaController extends Controller
         $categoria->update($validatedData);
 
         return response()->json($categoria);
+
+        
     }
 
     /**

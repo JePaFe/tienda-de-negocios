@@ -1,5 +1,14 @@
 # Tienda de Negocios
 
+## Instalar
+
+git clone <repository_url>
+
+composer install
+
+cp .env.example .env
+php artisan key:generate
+
 ## Productos API
 
 ### Endpoints

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\DTO\ProductoDTO;
+use App\Rules\ValidSku;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,6 +25,7 @@ class StoreProductoRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'sku' => ['required', 'string', 'max:255', 'unique:productos,sku', new ValidSku()],
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
             'precio' => 'required|numeric|min:0',
@@ -53,6 +55,7 @@ class StoreProductoRequest extends FormRequest
     public function toDTO(): ProductoDTO
     {
         return new ProductoDTO(
+            sku: $this->input('sku'),
             nombre: $this->input('nombre'),
             descripcion: $this->input('descripcion'),
             precio: (float) $this->input('precio'),

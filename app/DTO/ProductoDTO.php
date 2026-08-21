@@ -8,6 +8,7 @@ class ProductoDTO
      * Create a new class instance.
      */
     public function __construct(
+        public readonly string $sku,
         public readonly string $nombre,
         public readonly ?string $descripcion,
         public readonly float $precio,
@@ -18,6 +19,7 @@ class ProductoDTO
     public function toArray(): array
     {
         return [
+            'sku' => $this->sku,
             'nombre' => $this->nombre,
             'descripcion' => $this->descripcion,
             'precio' => $this->precio,
@@ -29,6 +31,7 @@ class ProductoDTO
     public static function fromArray(array $data): self
     {
         return new self(
+            sku: $data['sku'],
             nombre: $data['nombre'],
             descripcion: $data['descripcion'] ?? null,
             precio: (float) $data['precio'],
