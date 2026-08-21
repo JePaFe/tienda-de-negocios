@@ -2,7 +2,7 @@
 
 namespace App\DTO;
 
-class ProductoDTO
+class CreateProductoDTO
 {
     /**
      * Create a new class instance.

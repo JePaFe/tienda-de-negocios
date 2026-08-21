@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\DTO\ProductoDTO;
+use App\DTO\CreateProductoDTO;
 use App\Rules\ValidSku;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -52,9 +52,9 @@ class StoreProductoRequest extends FormRequest
         ];
     }
 
-    public function toDTO(): ProductoDTO
+    public function toDTO(): CreateProductoDTO
     {
-        return new ProductoDTO(
+        return new CreateProductoDTO(
             sku: $this->input('sku'),
             nombre: $this->input('nombre'),
             descripcion: $this->input('descripcion'),

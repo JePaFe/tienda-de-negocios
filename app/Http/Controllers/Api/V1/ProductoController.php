@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\DTO\ProductoDTO;
+use App\DTO\CreateProductoDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductoRequest;
 use App\Http\Requests\UpdateProductoRequest;
@@ -39,7 +39,7 @@ class ProductoController extends Controller
     public function store(StoreProductoRequest $request, ProductoService $productoService): JsonResponse {
         // $validatedData = $request->validated();
 
-        // $productoDTO = new ProductoDTO(
+        // $productoDTO = new CreateProductoDTO(
         //     nombre: $validatedData['nombre'],
         //     descripcion: $validatedData['descripcion'] ?? null,
         //     precio: (float) $validatedData['precio'],

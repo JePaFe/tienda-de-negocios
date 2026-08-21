@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-use App\DTO\ProductoDTO;
+use App\DTO\CreateProductoDTO;
 use App\Models\Producto;
 
 class ProductoService
 {
-    public function create(ProductoDTO $data): Producto
+    public function create(CreateProductoDTO $data): Producto
     {
         return Producto::create($data->toArray());
     }
