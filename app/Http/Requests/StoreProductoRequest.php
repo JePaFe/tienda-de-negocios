@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\DTO\ProductoDTO;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -47,5 +48,16 @@ class StoreProductoRequest extends FormRequest
             'categoria_id.required' => 'La categoría del producto es obligatoria.',
             'categoria_id.exists' => 'La categoría del producto debe existir en la base de datos.',
         ];
+    }
+
+    public function toDTO(): ProductoDTO
+    {
+        return new ProductoDTO(
+            nombre: $this->input('nombre'),
+            descripcion: $this->input('descripcion'),
+            precio: (float) $this->input('precio'),
+            stock: (int) $this->input('stock'),
+            categoria_id: (int) $this->input('categoria_id'),
+        );
     }
 }

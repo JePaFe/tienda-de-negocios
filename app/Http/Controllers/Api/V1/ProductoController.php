@@ -9,9 +9,9 @@ use App\Http\Requests\UpdateProductoRequest;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use App\Exceptions\ApiException;
+use App\Http\Resources\ProductoResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use App\Http\Resources\ProductoResource;
 use App\Services\ProductoService;
 
 class ProductoController extends Controller
@@ -47,9 +47,7 @@ class ProductoController extends Controller
         //     categoria_id: (int) $validatedData['categoria_id'],
         // );
 
-        $productoDTO = ProductoDTO::fromArray($request->validated());
-
-        $producto = Producto::create($productoDTO->toArray());
+        $producto = $productoService->create($request->toDTO());
 
         return response()->json(new ProductoResource($producto), 201);
     }
