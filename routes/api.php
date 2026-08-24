@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\CategoriaController;
 use App\Http\Controllers\Api\V1\ProductoController;
+use App\Http\Controllers\Api\V1\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,4 +19,8 @@ Route::prefix('v1')->group(function() {
 
     Route::apiResource('productos', ProductoController::class)->middleware('throttle:10,1');
     Route::apiResource('categorias', CategoriaController::class)->middleware('throttle:10,1');
+
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/profile', [AuthController::class, 'profile'])->middleware('auth:api');
 });
