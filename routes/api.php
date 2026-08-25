@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\CategoriaController;
 use App\Http\Controllers\Api\V1\ProductoController;
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\CarritoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +24,9 @@ Route::prefix('v1')->group(function() {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
     Route::get('/profile', [AuthController::class, 'profile'])->middleware('auth:api');
+
+    Route::middleware('auth:api')->prefix('carrito')->group(function () {
+        Route::get('/', [CarritoController::class, 'index']);
+        Route::post('/items', [CarritoController::class, 'store']);
+    });
 });
