@@ -47,6 +47,10 @@ class ProductoController extends Controller
         //     categoria_id: (int) $validatedData['categoria_id'],
         // );
 
+        // if (!auth('api')->user()->is_admin) {
+        //     return response()->json(['error' => 'No tienes permisos para crear productos'], 403);
+        // }
+
         $producto = $productoService->create($request->toDTO());
 
         return response()->json(new ProductoResource($producto), 201);

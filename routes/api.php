@@ -17,7 +17,7 @@ Route::prefix('v1')->group(function() {
     // Route::put('/productos/{producto}', [ProductoController::class, 'update']);
     // Route::delete('/productos/{producto}', [ProductoController::class, 'destroy']);
 
-    Route::apiResource('productos', ProductoController::class)->middleware('throttle:10,1');
+    Route::apiResource('productos', ProductoController::class)->middleware(['throttle:10,1', 'auth:api', 'admin']);
     Route::apiResource('categorias', CategoriaController::class)->middleware('throttle:10,1');
 
     Route::post('/register', [AuthController::class, 'register']);
