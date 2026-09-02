@@ -13,28 +13,6 @@ class ProductoSeeder extends Seeder
      */
     public function run(): void
     {
-        Producto::create([
-            'sku' => 'PROD0001',
-            'nombre' => 'Producto 1',
-            'descripcion' => 'Descripción del producto 1',
-            'precio' => 10.99,
-            'stock' => 100,
-        ]);
-
-        Producto::create([
-            'sku' => 'PROD0002',
-            'nombre' => 'Producto 2',
-            'descripcion' => 'Descripción del producto 2',
-            'precio' => 19.99,
-            'stock' => 50,
-        ]);
-
-        Producto::create([
-            'sku' => 'PROD0003',
-            'nombre' => 'Producto 3',
-            'descripcion' => 'Descripción del producto 3',
-            'precio' => 5.99,
-            'stock' => 200,
-        ]);
+        Producto::factory()->count(5)->create();
     }
 }

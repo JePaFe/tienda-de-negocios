@@ -13,7 +13,8 @@ class CategoriaSeeder extends Seeder
      */
     public function run(): void
     {
-        Categoria::create([
+
+        Categoria::factory()->create([
             'nombre' => 'Electrónica',
             'descripcion' => 'Productos electrónicos y gadgets.'
         ]);
